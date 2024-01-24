@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace baithiAPI
 {
     public class Program
@@ -13,6 +15,11 @@ namespace baithiAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            var connectionString = builder.Configuration.GetConnectionString("API");
+            builder.Services.AddDbContext<baithiDMAWS.Entities.DataContext>(
+                    options => options.UseSqlServer(connectionString)
+                );
 
             var app = builder.Build();
 
